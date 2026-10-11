@@ -1,23 +1,28 @@
 # University Lost and Found Website
 
-## About the Project
-This website helps university students report lost belongings and find items that have been found on campus.
+## Live Website
 
-## Features
-- Report lost items.
-- Report found items.
-- Display pictures of lost and found items.
-- Show contact information for users.
-- Simple and user-friendly interface.
+[Visit the Live Website](https://2622-4cs-010-lang.github.io/website/)
+
+## GitHub Repository
+
+[View Source Code on GitHub](https://github.com/2622-4cs-010-lang/website)
+
+## About the Project
+
+A website that helps university students report lost belongings and find items that have been found.
 
 ## Technologies Used
+
 - HTML
 - CSS
 
-## How to Run
-1. Download or clone this repository.
-2. Open the project folder.
-3. Open `index.html` in your web browser.
+## How to Use
 
-## Project Purpose
-The purpose of this project is to help university students reconnect with their lost belongings easily.
+1. Open the live website using the link above.
+2. Explore the available lost and found items.
+3. Use the available information to contact the relevant person.
+
+## How I Used AI
+
+I used ChatGPT to write html and css by giving it good prompts and clear instructions, troubleshoot Git and GitHub errors, and learn how to publish my website using GitHub Pages. I reviewed the suggestions and used them to develop and improve my project.
