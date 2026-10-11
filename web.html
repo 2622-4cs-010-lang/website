@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost & Found</title>
+
+    <!-- Connect CSS -->
+    <link rel="stylesheet" href="web.css">
+</head>
+
+<body>
+
+    <!-- ================= HOME PAGE ================= -->
+    <section class="home" id="home">
+
+        <!-- Profile -->
+        <div class="profile">
+            <div class="profile-pic">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                     alt="Profile Picture">
+            </div>
+
+            <h1>Sarah Ahmed</h1>
+            <p>Welcome to Lost & Found</p>
+        </div>
+
+        <!-- Main Buttons -->
+        <div class="main-buttons">
+            <button onclick="openLostItems()">
+                Lost Reports
+            </button>
+
+            <button onclick="openFoundItems()">
+                Found Items
+            </button>
+        </div>
+
+    </section>
+
+
+    <!-- ================= ITEMS PAGE ================= -->
+    <section class="dashboard" id="dashboard">
+
+        <div class="top-bar">
+
+            <button class="home-btn" onclick="goHome()">
+                ← Home
+            </button>
+
+            <h1 id="pageTitle">Lost Items</h1>
+
+            <button class="add-btn" onclick="openPostForm()">
+                + Add Post
+            </button>
+
+        </div>
+
+
+        <!-- Search -->
+        <div class="search-container">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search for an item..."
+                onkeyup="searchItems()"
+            >
+        </div>
+
+
+        <!-- Items -->
+        <div class="items-container" id="itemsContainer">
+
+            <!-- Lost Item 1 -->
+            <div class="item-card">
+
+                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62"
+                     alt="Black Wallet">
+
+                <div class="item-info">
+                    <h2>Black Wallet</h2>
+
+                    <p>
+                        Black leather wallet lost near the university library.
+                    </p>
+
+                    <p class="posted-by">
+                        Posted by: Ali Raza
+                    </p>
+
+                    <button onclick="showContact('Ali Raza', '0300-1234567')">
+                        I Found It
+                    </button>
+                </div>
+
+            </div>
+
+
+            <!-- Lost Item 2 -->
+            <div class="item-card">
+
+                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62"
+                     alt="Blue Backpack">
+
+                <div class="item-info">
+                    <h2>Blue Backpack</h2>
+
+                    <p>
+                        Blue backpack containing books and a notebook.
+                    </p>
+
+                    <p class="posted-by">
+                        Posted by: Hina Khan
+                    </p>
+
+                    <button onclick="showContact('Hina Khan', '0312-7654321')">
+                        I Found It
+                    </button>
+                </div>
+
+            </div>
+
+
+            <!-- Lost Item 3 -->
+            <div class="item-card">
+
+                <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d"
+                     alt="Silver Watch">
+
+                <div class="item-info">
+                    <h2>Silver Watch</h2>
+
+                    <p>
+                        Silver wristwatch lost near the cafeteria.
+                    </p>
+
+                    <p class="posted-by">
+                        Posted by: Usman Tariq
+                    </p>
+
+                    <button onclick="showContact('Usman Tariq', '0333-9876543')">
+                        I Found It
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CONTACT POPUP ================= -->
+    <div class="popup-overlay" id="contactPopup">
+
+        <div class="popup">
+
+            <button class="close-btn" onclick="closeContact()">
+                ×
+            </button>
+
+            <h2>Contact Information</h2>
+
+            <p id="contactName"></p>
+            <p id="contactPhone"></p>
+
+            <button onclick="closeContact()">
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= ADD POST POPUP ================= -->
+    <div class="popup-overlay" id="postPopup">
+
+        <div class="popup">
+
+            <button class="close-btn" onclick="closePostForm()">
+                ×
+            </button>
+
+            <h2>Add New Post</h2>
+
+            <input
+                type="text"
+                id="itemName"
+                placeholder="Item name"
+            >
+
+            <textarea
+                id="itemDescription"
+                placeholder="Describe the item..."
+            ></textarea>
+
+            <input
+                type="file"
+                id="itemImage"
+                accept="image/*"
+            >
+
+            <input
+                type="text"
+                id="contactInfo"
+                placeholder="Your contact number"
+            >
+
+            <button onclick="addPost()">
+                Post Item
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+
+        let currentType = "lost";
+
+        const lostItems = [
+            {
+                name: "Black Wallet",
+                description: "Black leather wallet lost near the university library.",
+                person: "Ali Raza",
+                phone: "0300-1234567",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThGMWjOWWZL-daUMw0ENhWOLmmsPTB5VnJmL-tRZQElEZhyCpvrKFkeLWs&s=10"
+            },
+
+            {
+                name: "Blue Backpack",
+                description: "Blue backpack containing books and a notebook.",
+                person: "Hina Khan",
+                phone: "0312-7654321",
+                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62"
+            },
+
+            {
+                name: "Silver Watch",
+                description: "Silver wristwatch lost near the cafeteria.",
+                person: "Usman Tariq",
+                phone: "0333-9876543",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2_nJ0p9JfUWBISyfuyYVPBXpHSmp7BFiwmjZdYdj20g&s=10"
+            }
+        ];
+
+
+        const foundItems = [
+            {
+                name: "Black iPhone",
+                description: "Black iPhone found near the main gate.",
+                person: "Maham Noor",
+                phone: "0301-5555555",
+                image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"
+            },
+
+            {
+                name: "Car Keys",
+                description: "A set of car keys found in the parking area.",
+                person: "Ahmed Hassan",
+                phone: "0321-4444444",
+                image: "https://media.istockphoto.com/id/1169344855/vector/car-key-security-icon-vector-illustration-in-flat-style.jpg?s=612x612&w=0&k=20&c=QZdmcjO-qLEAcvx1nfN1BF-qKwexFfkF9dCYo4ld8fM="
+            },
+
+            {
+                name: "Student ID Card",
+                description: "Student ID card found outside the cafeteria.",
+                person: "Sara Malik",
+                phone: "0345-2222222",
+                image: "https://png.pngtree.com/png-clipart/20240806/original/pngtree-id-card-for-college-students-vector-template-design-png-image_15712346.png"
+            }
+        ];
+
+
+        /* Open Lost Items */
+
+        function openLostItems() {
+
+            currentType = "lost";
+
+            document.getElementById("home").style.display = "none";
+            document.getElementById("dashboard").style.display = "block";
+
+            document.getElementById("pageTitle").innerText =
+                "Lost Items";
+
+            displayItems();
+        }
+
+
+        /* Open Found Items */
+
+        function openFoundItems() {
+
+            currentType = "found";
+
+            document.getElementById("home").style.display = "none";
+            document.getElementById("dashboard").style.display = "block";
+
+            document.getElementById("pageTitle").innerText =
+                "Found Items";
+
+            displayItems();
+        }
+
+
+        /* Go Home */
+
+        function goHome() {
+
+            document.getElementById("dashboard").style.display = "none";
+            document.getElementById("home").style.display = "flex";
+        }
+
+
+        /* Display Items */
+
+        function displayItems() {
+
+            const container =
+                document.getElementById("itemsContainer");
+
+            container.innerHTML = "";
+
+            let items =
+                currentType === "lost"
+                ? lostItems
+                : foundItems;
+
+
+            items.forEach(function(item) {
+
+                let buttonText =
+                    currentType === "lost"
+                    ? "I Found It"
+                    : "I Lost It";
+
+
+                container.innerHTML += `
+
+                    <div class="item-card">
+
+                        <img src="${item.image}"
+                             alt="${item.name}">
+
+                        <div class="item-info">
+
+                            <h2>${item.name}</h2>
+
+                            <p>
+                                ${item.description}
+                            </p>
+
+                            <p class="posted-by">
+                                Posted by: ${item.person}
+                            </p>
+
+                            <button
+                                onclick="showContact(
+                                    '${item.person}',
+                                    '${item.phone}'
+                                )">
+
+                                ${buttonText}
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+        }
+
+
+        /* Search Items */
+
+        function searchItems() {
+
+            let search =
+                document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase();
+
+
+            let items =
+                currentType === "lost"
+                ? lostItems
+                : foundItems;
+
+
+            const container =
+                document.getElementById("itemsContainer");
+
+            container.innerHTML = "";
+
+
+            items
+            .filter(item =>
+                item.name
+                .toLowerCase()
+                .includes(search)
+            )
+            .forEach(function(item) {
+
+                let buttonText =
+                    currentType === "lost"
+                    ? "I Found It"
+                    : "I Lost It";
+
+
+                container.innerHTML += `
+
+                    <div class="item-card">
+
+                        <img src="${item.image}"
+                             alt="${item.name}">
+
+                        <div class="item-info">
+
+                            <h2>${item.name}</h2>
+
+                            <p>${item.description}</p>
+
+                            <p class="posted-by">
+                                Posted by: ${item.person}
+                            </p>
+
+                            <button onclick="showContact(
+                                '${item.person}',
+                                '${item.phone}'
+                            )">
+
+                                ${buttonText}
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+        }
+
+
+        /* Show Contact */
+
+        function showContact(name, phone) {
+
+            document.getElementById("contactName")
+                .innerText = "Name: " + name;
+
+            document.getElementById("contactPhone")
+                .innerText = "Phone: " + phone;
+
+            document.getElementById("contactPopup")
+                .style.display = "flex";
+        }
+
+
+        /* Close Contact */
+
+        function closeContact() {
+
+            document.getElementById("contactPopup")
+                .style.display = "none";
+        }
+
+
+        /* Open Add Post */
+
+        function openPostForm() {
+
+            document.getElementById("postPopup")
+                .style.display = "flex";
+        }
+
+
+        /* Close Add Post */
+
+        function closePostForm() {
+
+            document.getElementById("postPopup")
+                .style.display = "none";
+        }
+
+
+        /* Add New Post */
+
+        function addPost() {
+
+            const name =
+                document.getElementById("itemName").value;
+
+            const description =
+                document.getElementById("itemDescription").value;
+
+            const phone =
+                document.getElementById("contactInfo").value;
+
+            const imageInput =
+                document.getElementById("itemImage");
+
+
+            if (!name || !description || !phone) {
+
+                alert("Please fill all fields.");
+                return;
+
+            }
+
+
+            let newItem = {
+
+                name: name,
+
+                description: description,
+
+                person: "Current User",
+
+                phone: phone,
+
+                image: imageInput.files.length
+                    ? URL.createObjectURL(imageInput.files[0])
+                    : "https://via.placeholder.com/400"
+
+            };
+
+
+            if (currentType === "lost") {
+
+                lostItems.push(newItem);
+
+            } else {
+
+                foundItems.push(newItem);
+
+            }
+
+
+            closePostForm();
+
+            displayItems();
+
+        }
+
+    </script>
+
+</body>
+</html>
