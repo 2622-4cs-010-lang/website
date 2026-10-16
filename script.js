@@ -353,3 +353,103 @@ themeToggle.addEventListener("click", function () {
     document.body.classList.toggle("dark");
     themeToggle.textContent = document.body.classList.contains("dark") ? "Light mode" : "Dark mode";
 });
+
+
+/* ================= TASK 3: SMART CONTACT FORM VALIDATION ================= */
+function openContactForm() {
+    document.getElementById("contactFormOverlay").style.display = "flex";
+}
+function closeContactForm() {
+    document.getElementById("contactFormOverlay").style.display = "none";
+}
+
+const smartContactForm = document.getElementById("smartContactForm");
+const visitorNameInput = document.getElementById("visitorName");
+const visitorEmailInput = document.getElementById("visitorEmail");
+const visitorMessageInput = document.getElementById("visitorMessage");
+const messageCounter = document.getElementById("messageCounter");
+const contactFormResult = document.getElementById("contactFormResult");
+
+function setContactError(fieldId, errorId, message) {
+    document.getElementById(errorId).textContent = message;
+    const field = document.getElementById(fieldId);
+    field.classList.toggle("invalid", Boolean(message));
+    field.setAttribute("aria-invalid", message ? "true" : "false");
+}
+function validateVisitorName() {
+    if (visitorNameInput.value.trim().length < 3) {
+        setContactError("visitorName", "visitorNameError", "Please enter your full name.");
+        return false;
+    }
+    setContactError("visitorName", "visitorNameError", "");
+    return true;
+}
+function validateVisitorEmail() {
+    const email = visitorEmailInput.value.trim();
+    if (!email.includes("@") || !email.includes(".")) {
+        setContactError("visitorEmail", "visitorEmailError", "Please enter a valid email.");
+        return false;
+    }
+    setContactError("visitorEmail", "visitorEmailError", "");
+    return true;
+}
+function validateVisitorMessage() {
+    if (visitorMessageInput.value.trim().length < 10) {
+        setContactError("visitorMessage", "visitorMessageError", "Tell us a little more (10+ characters).");
+        return false;
+    }
+    setContactError("visitorMessage", "visitorMessageError", "");
+    return true;
+}
+function updateContactMessageCounter() {
+    messageCounter.textContent = `${visitorMessageInput.value.length} / 200`;
+}
+
+visitorMessageInput.addEventListener("input", function () {
+    updateContactMessageCounter();
+    if (visitorMessageInput.getAttribute("aria-invalid") === "true") validateVisitorMessage();
+});
+visitorNameInput.addEventListener("input", function () {
+    if (visitorNameInput.getAttribute("aria-invalid") === "true") validateVisitorName();
+});
+visitorEmailInput.addEventListener("input", function () {
+    if (visitorEmailInput.getAttribute("aria-invalid") === "true") validateVisitorEmail();
+});
+
+smartContactForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    contactFormResult.textContent = "";
+    contactFormResult.className = "contact-form-result";
+
+    const nameValid = validateVisitorName();
+    const emailValid = validateVisitorEmail();
+    const messageValid = validateVisitorMessage();
+
+    if (!nameValid || !emailValid || !messageValid) {
+        contactFormResult.textContent = "Please correct the highlighted fields and try again.";
+        contactFormResult.classList.add("failure");
+        const firstInvalid = smartContactForm.querySelector(".invalid");
+        if (firstInvalid) firstInvalid.focus();
+        return;
+    }
+
+    const safeName = visitorNameInput.value.trim();
+    // textContent treats visitor input as plain text, even if it contains HTML tags.
+    contactFormResult.textContent = `Thank you, ${safeName}! Your message passed validation.`;
+    contactFormResult.classList.add("success");
+    smartContactForm.reset();
+    updateContactMessageCounter();
+    ["visitorName", "visitorEmail", "visitorMessage"].forEach(function (id) {
+        const field = document.getElementById(id);
+        field.classList.remove("invalid");
+        field.setAttribute("aria-invalid", "false");
+    });
+    ["visitorNameError", "visitorEmailError", "visitorMessageError"].forEach(function (id) {
+        document.getElementById(id).textContent = "";
+    });
+});
+
+document.getElementById("contactFormOverlay").addEventListener("click", function (event) {
+    if (event.target.id === "contactFormOverlay") closeContactForm();
+});
+updateContactMessageCounter();

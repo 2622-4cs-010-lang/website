@@ -82,3 +82,50 @@ body.dark .theme-toggle { background-color: #374151; color: #f9fafb; }
     .site-header { padding: 12px 20px; }
     .nav-menu { width: 100%; order: 3; }
 }
+
+
+/* ================= TASK 3: CONTACT US BUTTON AND FORM ================= */
+.contact-us-toggle {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #b8476b;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+.contact-us-toggle:hover { background-color: #963653; }
+body.dark .contact-us-toggle { background-color: #374151; color: #f9fafb; }
+.contact-form-popup { max-height: 90vh; overflow-y: auto; text-align: left; }
+.contact-form-popup h2 { text-align: center; margin-bottom: 8px; }
+.contact-form-intro { text-align: center; margin-bottom: 18px !important; }
+.contact-form-popup label { display: block; margin: 12px 0 6px; font-weight: bold; font-size: 14px; color: var(--text); }
+.contact-form-popup input, .contact-form-popup textarea {
+    display: block; width: 100%; padding: 11px 12px; margin: 0;
+    border: 1px solid var(--border-color); border-radius: 8px;
+    background: var(--input-bg); color: var(--text); font: inherit; font-size: 14px;
+}
+.contact-form-popup textarea { resize: vertical; min-height: 100px; }
+.contact-form-popup input:focus, .contact-form-popup textarea:focus { outline: 2px solid #d85d83; outline-offset: 1px; }
+.contact-form-popup input.invalid, .contact-form-popup textarea.invalid { border: 1px solid #c62828; }
+.form-error { display: block; color: #c62828; font-size: 12px; margin-top: 4px; }
+.form-error:empty { display: none; }
+.message-count-row { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
+.message-counter { color: #8a6472; font-size: 12px; margin-top: 5px; white-space: nowrap; }
+.contact-form-popup .contact-submit-btn { width: 100%; margin-top: 15px; }
+.contact-form-result { margin: 12px 0 0 !important; font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
+.contact-form-result.success { background: #e5f7e9; color: #176334; padding: 10px; border-radius: 8px; }
+.contact-form-result.failure { color: #c62828; }
+@media (max-width: 700px) {
+    .site-header { align-items: center; }
+    .contact-us-toggle, .theme-toggle { font-size: 14px; padding: 9px 11px; }
+    .contact-form-popup { padding: 28px 20px; }
+    
+}
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto;
+    flex-shrink: 0;
+}

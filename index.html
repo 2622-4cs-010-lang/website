@@ -20,7 +20,10 @@
             <a href="#lost" onclick="openLostItems()">Lost Items</a>
             <a href="#found" onclick="openFoundItems()">Found Items</a>
         </nav>
-        <button type="button" id="themeToggle" class="theme-toggle">Dark mode</button>
+       <div class="header-buttons">
+          <button type="button" id="themeToggle" class="theme-toggle">Dark mode</button>
+          <button type="button" id="contactUsToggle" class="contact-us-toggle" onclick="openContactForm()">Contact Us</button>
+       </div>
     </header>
 
     <!-- ================= HOME PAGE ================= -->
@@ -226,5 +229,35 @@
         </div>
 
     </div>
+
+    <!-- ================= TASK 3: SMART CONTACT FORM ================= -->
+    <div class="popup-overlay" id="contactFormOverlay">
+        <div class="popup contact-form-popup">
+            <button type="button" class="close-btn" onclick="closeContactForm()" aria-label="Close contact form">×</button>
+            <h2>Contact Us</h2>
+            <p class="contact-form-intro">Have a question? Send us a message.</p>
+
+            <form id="smartContactForm" novalidate>
+                <label for="visitorName">Full name *</label>
+                <input id="visitorName" name="name" type="text" placeholder="Enter your full name" aria-describedby="visitorNameError">
+                <small class="form-error" id="visitorNameError"></small>
+
+                <label for="visitorEmail">Email address *</label>
+                <input id="visitorEmail" name="email" type="text" placeholder="you@example.com" aria-describedby="visitorEmailError">
+                <small class="form-error" id="visitorEmailError"></small>
+
+                <label for="visitorMessage">Message *</label>
+                <textarea id="visitorMessage" name="message" rows="4" maxlength="200" placeholder="Write your message (at least 10 characters)" aria-describedby="visitorMessageError messageCounter"></textarea>
+                <div class="message-count-row">
+                    <small class="form-error" id="visitorMessageError"></small>
+                    <small id="messageCounter" class="message-counter">0 / 200</small>
+                </div>
+
+                <button type="submit" class="contact-submit-btn">Submit Message</button>
+                <p id="contactFormResult" class="contact-form-result" role="status" aria-live="polite"></p>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
